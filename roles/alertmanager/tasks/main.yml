@@ -13,6 +13,14 @@
     remote_src: yes
     mode: 0755
 
+- name: Grant permission for Alertmanager script file
+  file: 
+    path: /opt/alertmanager/alertmanager
+    owner: "root"
+    group: "root"
+    remote_src: yes
+    mode: 0755
+
 - name: Creates directory
   file:
     path: /opt/alertmanager/data
