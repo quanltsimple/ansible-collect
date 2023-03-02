@@ -10,7 +10,11 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['10.148.0.9:9090']
-      - targets: ['10.148.0.10:9090']
+
+  - job_name: 'grafana'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['10.148.0.9:9090']
   
   - job_name: 'blackbox'
     metrics_path: /probe
