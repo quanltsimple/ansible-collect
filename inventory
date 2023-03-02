@@ -1,0 +1,5 @@
+[prometheus]
+10.148.0.7
+
+[node_exporter]
+10.148.0.6
