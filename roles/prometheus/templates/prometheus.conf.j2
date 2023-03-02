@@ -19,12 +19,7 @@ scrape_configs:
   - job_name: 'grafana'
     scrape_interval: 5s
     static_configs:
-      - targets:
-      {% for host in groups['all'] %}
-      {% if inventory_hostname != host %}
-        - '{{ host }}:9100'
-      {% endif %}
-      {% endfor %}
+      - targets: ['10.148.0.10:9090']
   
   - job_name: 'blackbox'
     metrics_path: /probe
