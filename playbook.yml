@@ -13,6 +13,7 @@
   roles:
     - prometheus_blackbox_exporter
     - prometheus
+    - alertmanager
 
 - hosts: grafana
   become: yes

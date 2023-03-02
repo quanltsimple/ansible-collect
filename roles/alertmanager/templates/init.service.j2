@@ -1,0 +1,13 @@
+[Unit]
+Description={{serviceName}} for prometheus
+
+[Service]
+Restart=always
+User={{ userId }}
+ExecStart={{ exec_command }}          
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target

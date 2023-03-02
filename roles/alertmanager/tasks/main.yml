@@ -1,0 +1,40 @@
+- name: Install Alertmanager
+  unarchive:
+    src: "https://github.com/prometheus/alertmanager/releases/download/v{{ version }}/alertmanager-{{ version }}.linux-amd64.tar.gz"
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy Alertmanager file to bin
+  copy:
+    src: "/tmp/alertmanager-{{ version }}.linux-amd64/"
+    dest: "/opt/alertmanager/"
+    owner: "root"
+    group: "root"
+    remote_src: yes
+    mode: 0755
+
+- name: Creates directory
+  file:
+    path: /opt/alertmanager/data
+    state: directory
+    owner: "{{userId}}"
+    group: "{{groupId}}"
+    mode: 0755
+
+- name: Delete Alertmanager tmp folder
+  file:
+    path: '/tmp/alertmanager-{{ version }}.linux-amd64'
+    state: absent
+
+- name: Copy systemd init file
+  template:
+    src: init.service.j2
+    dest: /etc/systemd/system/alertmanager.service
+  notify: systemd_reload
+
+- name: Start prometheus service
+  service:
+    name: alertmanager
+    state: started
+    enabled: yes
+
