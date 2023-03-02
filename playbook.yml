@@ -5,7 +5,6 @@
   become_method: sudo
   roles:
     - prometheus_node_exporter
-    - grafana
 
 - hosts: prometheus
   become: yes
@@ -14,3 +13,11 @@
   roles:
     - prometheus_blackbox_exporter
     - prometheus
+
+- hosts: grafana
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - grafana
+    - prometheus_node_exporter
