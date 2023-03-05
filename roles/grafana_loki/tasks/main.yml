@@ -1,3 +1,9 @@
+- name: Install Unzip command
+  apt: 
+      name: unzip
+      state: present
+      update_cache: yes
+
 - name: Install Loki
   unarchive:
     src: "https://github.com/grafana/loki/releases/download/v{{ version }}/loki-linux-amd64.zip"
