@@ -1,0 +1,53 @@
+- name: Install Loki
+  unarchive:
+    src: "https://github.com/grafana/loki/releases/download/v{{ version }}/loki-linux-amd64.zip"
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy Loki file to bin
+  copy:
+    src: "/tmp/loki-linux-amd64"
+    dest: "/usr/local/bin/loki"
+    owner: "root"
+    group: "root"
+    remote_src: yes
+    mode: 0755
+
+- name: Creates directory first
+  file:
+    path: /etc/loki
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: 0755
+
+- name: Creates directory second
+  file:
+    path: /data/loki
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: 0755
+
+- name: Delete Loki tmp folder
+  file:
+    path: '/tmp/loki-linux-amd64'
+    state: absent
+
+- name: Copy config file
+  template:
+    src: loki-local-config.yaml
+    dest: /etc/loki-local-config.yaml
+
+- name: Copy systemd init file
+  template:
+    src: init.service.j2
+    dest: /etc/systemd/system/alertmanager.service
+  notify: systemd_reload
+
+- name: Start Loki service
+  service:
+    name: loki
+    state: started
+    enabled: yes
+

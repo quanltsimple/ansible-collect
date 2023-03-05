@@ -22,3 +22,4 @@
   roles:
     - grafana
     - prometheus_node_exporter
+    - grafana_loki

@@ -1,0 +1,6 @@
+---
+serviceName: "Loki"
+userId: "root"
+groupId: "root"
+exec_command: "/usr/local/bin/loki -config.file /etc/loki-local-config.yaml"
+version: "2.7.4"
