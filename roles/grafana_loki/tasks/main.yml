@@ -48,7 +48,7 @@
 - name: Copy systemd init file
   template:
     src: init.service.j2
-    dest: /etc/systemd/system/alertmanager.service
+    dest: /etc/systemd/system/loki.service
   notify: systemd_reload
 
 - name: Start Loki service
