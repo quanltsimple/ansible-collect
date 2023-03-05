@@ -6,7 +6,7 @@
 
 - name: Install Promtail
   unarchive:
-    src: "https://github.com/grafana/loki/releases/download/v{{ version }}/promtail-linux-amd64.zi"
+    src: "https://github.com/grafana/loki/releases/download/v{{ version }}/promtail-linux-amd64.zip"
     dest: /tmp/
     remote_src: yes
 
