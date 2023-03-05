@@ -5,6 +5,7 @@
   become_method: sudo
   roles:
     - prometheus_node_exporter
+    - promtail_agent
 
 - hosts: prometheus
   become: yes

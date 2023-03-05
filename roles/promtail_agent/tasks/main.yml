@@ -1,0 +1,43 @@
+- name: Install Unzip command
+  apt: 
+      name: unzip
+      state: present
+      update_cache: yes
+
+- name: Install Promtail
+  unarchive:
+    src: "https://github.com/grafana/loki/releases/download/v{{ version }}/promtail-linux-amd64.zi"
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy Promtail file to bin
+  copy:
+    src: "/tmp/promtail-linux-amd64"
+    dest: "/usr/local/bin/promtail"
+    owner: "root"
+    group: "root"
+    remote_src: yes
+    mode: 0755
+
+- name: Delete Promtail tmp folder
+  file:
+    path: '/tmp/promtail-linux-amd64'
+    state: absent
+
+- name: Copy config file
+  template:
+    src: promtail-local-config.yaml
+    dest: /etc/promtail-local-config.yaml
+
+- name: Copy systemd init file
+  template:
+    src: init.service.j2
+    dest: /etc/systemd/system/promtail.service
+  notify: systemd_reload
+
+- name: Start Promtail service
+  service:
+    name: promtail
+    state: started
+    enabled: yes
+

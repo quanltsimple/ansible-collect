@@ -1,0 +1,12 @@
+[Unit]
+Description={{serviceName}} service
+After=network.target
+
+[Service]
+Restart=always
+Type=simple
+User={{ userId }}
+ExecStart={{ exec_command }}  
+
+[Install]
+WantedBy=multi-user.target

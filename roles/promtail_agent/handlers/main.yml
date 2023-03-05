@@ -1,0 +1,9 @@
+- name: Restart the Promtail service
+  service:
+    name: promtail
+    state: restarted
+  listen: event_restart_alertmanager
+
+- name: Reload systemd
+  command: systemctl daemon-reload
+  listen: systemd_reload
