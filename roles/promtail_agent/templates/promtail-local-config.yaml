@@ -1,12 +1,13 @@
 server:
   http_listen_port: 9080
-  grpc_listen_port: 0
+  grpc_listen_port: 9081
 
 positions:
   filename: /data/loki/positions.yaml
 
 clients:
-  - url: http://10.148.0.10:3100/loki/api/v1/push
+  - url: http://localhost:3100/loki/api/v1/push
+# Update IP of Server hosted Loki
 
 scrape_configs:
 - job_name: system
